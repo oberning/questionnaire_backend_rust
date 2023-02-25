@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
-use super::traits::ToJson;
+use macros::ToJson;
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, ToJson)]
 struct Questions<'a> {
     #[serde(borrow)]
     questions: Vec<Question<'a>>
@@ -40,9 +40,8 @@ impl<'a> Default for Questions<'a> {
     }
 }
 
-impl<'a> ToJson for Questions<'a> {}
-
 
 pub fn print_question() -> String {
-    Questions::default().to_json()
+    let questions = Questions::default();
+    questions.to_json()
 }
