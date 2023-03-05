@@ -16,16 +16,6 @@ fn impl_to_json(ast: &syn::DeriveInput) -> TokenStream {
     let name = &ast.ident;
     let gen = quote! {
 
-        // pub trait HelloMacro {
-        //     fn hello(&self) -> String;
-        // }
-        
-        // impl HelloMacro for #name {
-        //     fn hello(&self) -> String {
-        //         format!( "Hello, Macro! My name is {}!", &self.text )
-        //     }
-        // }
-
         pub trait ToJson {
             fn to_json(&self) -> String where Self: Serialize;
         }
