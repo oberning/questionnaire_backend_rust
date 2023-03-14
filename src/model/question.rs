@@ -9,20 +9,20 @@ pub struct Model {
     pub id: i32,
     pub text: String,
     pub max_score: i32,
-    pub answer_id: i32,
+    pub questionnaire_id: i32,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {
+    #[sea_orm(has_many = "super::answer::Entity")]
+    Answer,
     #[sea_orm(
-        belongs_to = "super::answer::Entity",
-        from = "Column::AnswerId",
-        to = "super::answer::Column::Id",
+        belongs_to = "super::questionnaire::Entity",
+        from = "Column::QuestionnaireId",
+        to = "super::questionnaire::Column::Id",
         on_update = "NoAction",
         on_delete = "NoAction"
     )]
-    Answer,
-    #[sea_orm(has_many = "super::questionnaire::Entity")]
     Questionnaire,
 }
 

@@ -9,11 +9,18 @@ pub struct Model {
     pub id: i32,
     pub text: String,
     pub is_correct: bool,
+    pub question_id: i32,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {
-    #[sea_orm(has_many = "super::question::Entity")]
+    #[sea_orm(
+        belongs_to = "super::question::Entity",
+        from = "Column::QuestionId",
+        to = "super::question::Column::Id",
+        on_update = "NoAction",
+        on_delete = "NoAction"
+    )]
     Question,
 }
 

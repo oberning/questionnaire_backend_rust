@@ -1,5 +1,6 @@
 use sea_orm_migration::prelude::*;
-use super::m20230312_000001_create_answer_table::Answer;
+
+use super::m20230312_000001_create_questionnaire_table::Questionnaire;
 
 pub struct Migration;
 
@@ -26,12 +27,12 @@ impl MigrationTrait for Migration {
                     )
                     .col(ColumnDef::new(Question::Text).string().not_null())
                     .col(ColumnDef::new(Question::MaxScore).integer().not_null())
-                    .col(ColumnDef::new(Question::AnswerId).integer().not_null())
+                    .col(ColumnDef::new(Question::QuestionnaireId).integer().not_null())
                     .foreign_key(
                         ForeignKey::create()
-                            .name("fk-question-answer_id")
-                            .from(Question::Table, Question::AnswerId)
-                            .to(Answer::Table, Answer::Id),
+                            .name("fk-question-questionnaire_id")
+                            .from(Question::Table, Question::QuestionnaireId)
+                            .to(Questionnaire::Table, Questionnaire::Id),
                     )
                     .to_owned(),
             )
@@ -52,5 +53,5 @@ pub enum Question {
     Id,
     Text,
     MaxScore,
-    AnswerId,
+    QuestionnaireId,
 }
