@@ -20,7 +20,7 @@ fn impl_to_json(ast: &syn::DeriveInput) -> TokenStream {
             fn to_json(&self) -> String where Self: Serialize;
         }
 
-        impl<'a> ToJson for #name<'a> {
+        impl ToJson for #name {
             fn to_json(&self) -> String where Self: Serialize {
                 serde_json::to_string(&self).unwrap()
             }

@@ -7,53 +7,59 @@ INSERT INTO questionnaire
 ("name")
 VALUES('Heise Quiz');
 
-INSERT INTO public.question
-("text", max_score, questionnaire_id)
-VALUES('Meta and Google work on language models. What will they be able?', 2, 1);
 
-INSERT INTO public.answer
-("text", is_correct, question_id)
-VALUES('Answer messages automatically', false, 4);
-
-INSERT INTO public.answer
-("text", is_correct, question_id)
-VALUES('Laughing', false, 4);
-
-INSERT INTO public.answer
-("text", is_correct, question_id)
-VALUES('Learn how to use APIs', true, 4);
 
 INSERT INTO public.question
 ("text", max_score, questionnaire_id)
-VALUES('What is the situation about copyright for ChatGPT and others?', 2, 1);
+VALUES('Meta and Google work on language models. What will they be able?', 2, (select last_value from questionnaire_id_seq));
 
 INSERT INTO public.answer
 ("text", is_correct, question_id)
-VALUES('Copyrights do not apply to them', false, 5);
+VALUES('Answer messages automatically', false, (select last_value from question_id_seq));
 
 INSERT INTO public.answer
 ("text", is_correct, question_id)
-VALUES('The AI copyright law regulates that', false, 5);
+VALUES('Laughing', false, (select last_value from question_id_seq));
 
 INSERT INTO public.answer
 ("text", is_correct, question_id)
-VALUES('It is difficult and unclear', true, 5);
+VALUES('Learn how to use APIs', true, (select last_value from question_id_seq));
+
+
 
 INSERT INTO public.question
 ("text", max_score, questionnaire_id)
-VALUES('Why is the Internet Explorer dead?', 2, 1);
+VALUES('What is the situation about copyright for ChatGPT and others?', 2, (select last_value from questionnaire_id_seq));
 
 INSERT INTO public.answer
 ("text", is_correct, question_id)
-VALUES('Because there is no AI in it', false, 6);
+VALUES('Copyrights do not apply to them', false, (select last_value from question_id_seq));
 
 INSERT INTO public.answer
 ("text", is_correct, question_id)
-VALUES('It was replaced by Edge', true, 6);
+VALUES('The AI copyright law regulates that', false, (select last_value from question_id_seq));
 
 INSERT INTO public.answer
 ("text", is_correct, question_id)
-VALUES('Language models cannot capture data', true, 6);
+VALUES('It is difficult and unclear', true, (select last_value from question_id_seq));
+
+
+
+INSERT INTO public.question
+("text", max_score, questionnaire_id)
+VALUES('Why is the Internet Explorer dead?', 2, (select last_value from questionnaire_id_seq));
+
+INSERT INTO public.answer
+("text", is_correct, question_id)
+VALUES('Because there is no AI in it', false, (select last_value from question_id_seq));
+
+INSERT INTO public.answer
+("text", is_correct, question_id)
+VALUES('It was replaced by Edge', true, (select last_value from question_id_seq));
+
+INSERT INTO public.answer
+("text", is_correct, question_id)
+VALUES('Language models cannot capture data', true, (select last_value from question_id_seq));
 
 
 
