@@ -1,10 +1,8 @@
 mod model;
 mod service;
 mod migrator;
-mod repository;
 use actix_web::{App, HttpServer, middleware::Logger, web::Data};
 use migrator::Migrator;
-use repository::{question};
 use sea_orm_migration::prelude::*;
 use service::{routes, database};
 
@@ -17,7 +15,6 @@ async fn main() -> std::io::Result<()> {
     Migrator::up(&db_pool, None).await.unwrap();
     assert!(schema_manager.has_table("question").await.unwrap());
     assert!(schema_manager.has_table("answer").await.unwrap());
-    question::test(&db_pool).await;
     HttpServer::new(move || 
             App::new()
             .app_data(Data::new(db_pool.to_owned()))
