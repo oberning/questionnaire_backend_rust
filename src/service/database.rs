@@ -1,14 +1,11 @@
-use log::info;
-use sea_orm::{prelude::*, ConnectOptions, Database};
+use sqlx::{sqlite::SqlitePoolOptions, SqlitePool};
 
-const DB_URL: &str = "postgres://postgres:postgres@localhost:5432/questionnaire";
+const DB_URL: &str = "sqlite://sqlite.db";
 
-pub async fn build_connection_pool() -> DatabaseConnection {
-    let mut opt = ConnectOptions::new(DB_URL.to_owned());
-    opt.sqlx_logging(true);
-    let db_connection = Database::connect(opt)
-        .await
-        .expect("Connection Pool could not be established!");
-    info!("Created connection pool.");
-    db_connection
+pub async fn build_connection_pool() -> Result<SqlitePool, sqlx::Error> {
+    let pool = SqlitePoolOptions::new()
+        .max_connections(3)
+        .connect(DB_URL)
+        .await;
+    pool
 }
