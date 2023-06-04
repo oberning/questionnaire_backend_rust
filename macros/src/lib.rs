@@ -22,11 +22,9 @@ fn impl_to_json(ast: &syn::DeriveInput) -> TokenStream {
 
         impl ToJson for #name {
             fn to_json(&self) -> String where Self: Serialize {
-                serde_json::to_string_pretty(&self).unwrap()
+                serde_json::to_string(&self).unwrap()
             }
         }
-
-
     };
     gen.into()
 }
